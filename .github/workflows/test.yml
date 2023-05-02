@@ -35,9 +35,9 @@ jobs:
           echo Add other actions to build,
           echo test, and deploy your project.
   Test:
-    needs:[build]
+    needs: [build]
     steps:
-      -name: Test steps
+      - name: Test steps
        run: |
        echo Testing
        echo Stopping
