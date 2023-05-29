@@ -15,11 +15,6 @@ on:
 jobs:
   # This workflow contains a single job called "build"
   build:
-   #rules:
-    #if: '$CI_COMMIT_BRANCH =~ /^feature/'
-    #allow_failure: true
-     if: ($CI_COMMIT_BRANCH == "master" || $CI_COMMIT_BRANCH == "develop") 
-
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
     environment:
