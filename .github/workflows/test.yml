@@ -18,7 +18,7 @@ jobs:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
     environment:
-     name: test1
+     name: test
      url: https://github.com
     
     # Steps represent a sequence of tasks that will be executed as part of the job
@@ -33,7 +33,7 @@ jobs:
   test:
     runs-on: ubuntu-latest
     environment:
-     name: qa1
+     name: qa
      url: https://github.com
     
     # Steps represent a sequence of tasks that will be executed as part of the job
@@ -41,3 +41,4 @@ jobs:
       # Runs a single command using the runners shell
       - name: Test one line
         run: echo "This is a test job running in ${{ vars.qa_var }}"
+
