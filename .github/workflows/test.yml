@@ -31,8 +31,9 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: Run a one-line script
-        run: echo "This is a build job running in ${{ vars.ENV_var }}"
-
+        run: |
+         echo "This is a build job running in ${{ vars.ENV_var }}"
+         helm version
   #test:
   #  runs-on: ubuntu-latest
   #  environment:
