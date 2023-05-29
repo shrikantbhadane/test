@@ -26,7 +26,7 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: Run a one-line script
-        run: "This is a build job running in ${{ env.ENV_var }}"
+        run: "This is a build job running in ${{ vars.ENV_var }}"
 
   test:
     runs-on: ubuntu-latest
@@ -36,4 +36,4 @@ jobs:
     steps:
       # Runs a single command using the runners shell
       - name: Test one line
-        run: echo "This is a test job running in ${{ env.qa_var }}"
+        run: echo "This is a test job running in ${{ vars.qa_var }}"
