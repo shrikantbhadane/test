@@ -9,7 +9,7 @@ on:
     branches: [ "main" ]
  
   # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
+  #workflow_dispatch:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -17,8 +17,11 @@ jobs:
   build:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        env: [test, qa]
     environment:
-     name: test
+     name: ${{ matrix.env }}
      url: https://github.com
     
     # Steps represent a sequence of tasks that will be executed as part of the job
@@ -30,15 +33,15 @@ jobs:
       - name: Run a one-line script
         run: echo "This is a build job running in ${{ vars.ENV_var }}"
 
-  test:
-    runs-on: ubuntu-latest
-    environment:
-     name: qa
-     url: https://github.com
+  #test:
+  #  runs-on: ubuntu-latest
+  #  environment:
+  #   name: qa
+  #   url: https://github.com
     
     # Steps represent a sequence of tasks that will be executed as part of the job
-    steps:
+  #  steps:
       # Runs a single command using the runners shell
-      - name: Test one line
-        run: echo "This is a test job running in ${{ vars.qa_var }}"
+  #    - name: Test one line
+  #      run: echo "This is a test job running in ${{ vars.qa_var }}"
 
