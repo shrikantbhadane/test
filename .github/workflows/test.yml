@@ -39,7 +39,7 @@ jobs:
          #echo "This is a build job running in ${{ vars.var }}"
          helm version
          startsWith(github.ref, 'refs/heads/feature/')
-         echo ${{ github.ref }}
+         echo "${{ github.ref }}"
   #test:
   #  runs-on: ubuntu-latest
   #  environment:
