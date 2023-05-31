@@ -25,7 +25,7 @@ jobs:
     # url: https://github.com
     
     env:
-      var1: ${{ vars.var }}
+      var1: ${{ github.ref }}
       
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -39,7 +39,7 @@ jobs:
          #echo "This is a build job running in ${{ vars.var }}"
          helm version
          startsWith(github.ref, 'refs/heads/feature/')
-         echo "${{ github.ref }}"
+         echo "$var1"
   #test:
   #  runs-on: ubuntu-latest
   #  environment:
