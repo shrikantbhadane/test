@@ -38,8 +38,8 @@ jobs:
          echo "This is a build job running in $var1"
          #echo "This is a build job running in ${{ vars.var }}"
          helm version
-         echo startsWith(github.ref, 'refs/heads/feature/')
-         echo github.ref
+         startsWith(github.ref, 'refs/heads/feature/')
+         echo ${{ github.ref }}
   #test:
   #  runs-on: ubuntu-latest
   #  environment:
