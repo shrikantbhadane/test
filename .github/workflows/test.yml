@@ -32,7 +32,18 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
-
+      
+      - name: map environment variables based on matix strategy
+        uses: kanga333/variable-mapper@master
+        with:
+          key: "${{ matrix.env }}"
+          map: |
+           {
+              "test": {
+                "HELM_ARGS": "--set ingress.albsecuritygroups=sg-002e04ec1ab42fe7b\,sg-005695cc61fe146db\,sg-0320f9fa23244a652\,sg-0b42d7c69e3572496\,sg-0ed32713ebb19d40b"
+                }
+            }  
+          
       # Runs a single command using the runners shell
       - name: Run a one-line script
         if: startsWith(github.ref, 'refs/heads/feature/')
