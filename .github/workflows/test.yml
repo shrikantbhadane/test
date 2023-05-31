@@ -40,7 +40,7 @@ jobs:
           map: |
            {
               "test": {
-                "HELM_ARGS": "--set ingress.albsecuritygroups=sg-002e04ec1ab42fe7b, sg-005695cc61fe146db, sg-0320f9fa23244a652, sg-0b42d7c69e3572496, sg-0ed32713ebb19d40b"
+                "HELM_ARGS": "--set ingress.albs3loggingbucket=loadbalancer-logs-indigo-dev20210910105730821400000007 --set ingress.albsecuritygroups=sg-002e04ec1ab42fe7b, sg-005695cc61fe146db, sg-0320f9fa23244a652, sg-0b42d7c69e3572496, sg-0ed32713ebb19d40b"
                 }
             }  
           
