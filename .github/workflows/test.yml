@@ -35,12 +35,13 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: Run a one-line script
+        if: startsWith(github.ref, 'refs/heads/feature/')
         run: |
-         echo "This is a build job running in $var1"
+         #echo "This is a build job running in $var1"
          #echo "This is a build job running in ${{ vars.var }}"
-         helm version
-         echo $var2
-         echo $var1
+         #helm version
+         echo "Success"
+         
   #test:
   #  runs-on: ubuntu-latest
   #  environment:
