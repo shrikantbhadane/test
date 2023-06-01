@@ -21,7 +21,7 @@ jobs:
     #  matrix:
     #    env: [test, qa]
     if: |
-      (github.ref == "test" )
+      (github.ref == 'test' )
       
     env:
       var1: ${{ github.ref }}
