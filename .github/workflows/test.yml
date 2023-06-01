@@ -17,13 +17,12 @@ jobs:
   build:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
-    #strategy:
-    #  matrix:
-    #    env: [test, qa]
-    #environment:
-    # name: ${{ matrix.env }}
-    # url: https://github.com
-    
+    strategy:
+      matrix:
+        env: [test, qa]
+    if: |
+      ( matrix.env == "test" )
+      
     env:
       var1: ${{ github.ref }}
       var2: startsWith(github.ref, 'refs/heads/feature/')
