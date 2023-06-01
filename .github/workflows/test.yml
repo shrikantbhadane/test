@@ -25,8 +25,7 @@ jobs:
       var1: ${{ github.ref }}
       var2: startsWith(github.ref, 'refs/heads/feature/')
     
-    if: |
-      ( matrix.env == 'test' )
+    if: matrix.env == 'test'
       
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
