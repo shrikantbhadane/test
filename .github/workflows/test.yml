@@ -20,4 +20,4 @@ jobs:
   name: "calling reusable workflow"
   uses: ./.github/workflows/reusable.yml
   with:
-   env2: ${{ needs.varibaleSetting.output.env1 }}
+   env2: ${{ needs.varibaleSetting.outputs.env1 }}
