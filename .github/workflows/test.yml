@@ -11,4 +11,4 @@ jobs:
     env1: [test, qa]
   steps:
    - name: setting env variables
-   - run: echo "Setting env variables ${{ matrix.env1 }}"
+     run: echo "Setting env variables ${{ matrix.env1 }}"
