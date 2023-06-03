@@ -1,3 +1,3 @@
 # test
 Test repository
-(https://github.com/github/test/actions/workflows/test.yml/badge.svg)
+[![CI](https://github.com/shrikantbhadane/test/actions/workflows/test.yml/badge.svg)](https://github.com/shrikantbhadane/test/actions/workflows/test.yml)
