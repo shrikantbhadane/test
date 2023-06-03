@@ -15,8 +15,6 @@ jobs:
    - name: setting env variables
      run: |
       echo "Setting env variables ${{ matrix.env1 }}"
-      #echo "out variable: ${{ outputs.env1 }}"
-      #echo "env1=${{ matrix.env1 || 'true' }}" >> $GITHUB_OUTPUT
    
  callingReusable:
   needs: varibaleSetting
