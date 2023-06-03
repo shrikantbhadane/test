@@ -3,12 +3,12 @@ on:
  push:
  
 jobs:
- setenv:
+ varibaleSetting:
   name: setting env
   runs-on: ubuntu-latest
   strategy:
    matrix:
     env1: [test, qa]
   steps:
-  - name: setting env variables
-  - run: echo " Setting env variables ${{ matrix.env1 }}"
+   - name: setting env variables
+   - run: echo "Setting env variables ${{ matrix.env1 }}"
