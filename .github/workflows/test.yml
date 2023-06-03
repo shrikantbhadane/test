@@ -20,7 +20,7 @@ jobs:
     strategy:
       matrix:
         env: [test, qa]
-
+    if: ${{ matrix.env == 'test'}}
      
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
