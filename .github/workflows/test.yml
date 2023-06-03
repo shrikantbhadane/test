@@ -17,9 +17,9 @@ jobs:
   setenv1:
    name: setting env
    runs-on: ubuntu-latest
-   #strategy:
-   #   matrix:
-   #     env: [test, qa]
+   strategy:
+    matrix:
+     env: [test, qa]
    #outputs: 
    #   env1: ${{ matrix.env }}
    steps:
