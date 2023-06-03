@@ -9,6 +9,8 @@ jobs:
   strategy:
    matrix:
     env1: [test, qa]
+  outputs:
+   env1: ${{ matrix.env1 }}
   steps:
    - name: setting env variables
      run: echo "Setting env variables ${{ matrix.env1 }}"
