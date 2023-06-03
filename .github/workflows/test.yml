@@ -19,8 +19,8 @@ jobs:
    strategy:
       matrix:
         env: [test, qa]
-   outputs: 
-      env1: ${{ matrix.env }}
+   #outputs: 
+   #   env1: ${{ matrix.env }}
    steps:
     - name: Setenv
     - run: echo "I am at setenv ${{ matrix.env }}"
