@@ -13,11 +13,16 @@ jobs:
    env1: ${{ matrix.env1 }}
   steps:
    - name: setting env variables
-     run: echo "Setting env variables ${{ matrix.env1 }}"
+     run: |
+      echo "Setting env variables ${{ matrix.env1 }}"
+      #echo "env1=${{ matrix.env1 || 'true' }}" >> $GITHUB_OUTPUT
    
  callingReusable:
   needs: varibaleSetting
   name: "calling reusable workflow"
-  uses: ./.github/workflows/reusable.yml
-  with:
-   env2: ${{ needs.varibaleSetting.outputs.env1 }}
+  runs-on: ubuntu-latest
+  steps:
+   - run: echo " from callingReusable ${{ needs.varibaleSetting.outputs.env1 }}"
+  #uses: ./.github/workflows/reusable.yml
+  #with:
+   #env2: ${{ needs.varibaleSetting.outputs.env1 }}
