@@ -31,17 +31,6 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: Run a one-line script
-        run: echo "This is a build job running in ${{ vars.ENV_var }}"
+        run: echo "This is a build job running in ${{ matrix.env }}"
 
-  #test:
-  #  runs-on: ubuntu-latest
-  #  environment:
-  #   name: qa
-  #   url: https://github.com
-    
-    # Steps represent a sequence of tasks that will be executed as part of the job
-  #  steps:
-      # Runs a single command using the runners shell
-  #    - name: Test one line
-  #      run: echo "This is a test job running in ${{ vars.qa_var }}"
 
