@@ -15,7 +15,13 @@ jobs:
    - name: setting env variables
      run: |
       echo "Setting env variables ${{ matrix.env1 }}"
-      
+   
+   - name: Checkout repo
+     uses: /checkout@v3
+     with:
+      fetch-depth: 50
+      lfs: true
+        
    - name: Run git config. 
      run: |
       #git config user.email "actions@github.com"
