@@ -27,7 +27,7 @@ jobs:
       #git config user.email "actions@github.com"
       #git config user.name "GitHub Actions"
       #.git_template: &git_setup |
-      # git remote set-url --push origin "https://oauth2:${GITLAB_TOKEN}@${CI_SERVER_HOST}/${CI_PROJECT_PATH}.git"
+      git remote set-url --push origin "https://github.com/shrikantbhadane/test.git"
       git config user.name "INDIGO Github CI"
       git config user.email indigo@bayer.github.com
       git status
