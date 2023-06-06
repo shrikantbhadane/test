@@ -32,6 +32,9 @@ jobs:
       git config user.email indigo@bayer.github.com
       git status
       git config --list
+      echo ${{ github.repositoryUrl }}
+      echo ${{ github.server_url }}
+      echo ${{ github.repository }}
                  
  #callingReusable:
   #needs: varibaleSetting
