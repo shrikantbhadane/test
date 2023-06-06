@@ -26,13 +26,13 @@ jobs:
       git config user.email indigo@bayer.github.com
       git status
                  
- callingReusable:
-  needs: varibaleSetting
-  name: "calling reusable workflow"
+ #callingReusable:
+  #needs: varibaleSetting
+  #name: "calling reusable workflow"
   #runs-on: ubuntu-latest
   #steps:
   # - run: echo " from callingReusable ${{ needs.varibaleSetting.outputs.env1 }}"
-  uses: ./.github/workflows/reusable.yml
-  with:
-   env2: ${{ needs.varibaleSetting.outputs.env1 }}
+  #uses: ./.github/workflows/reusable.yml
+  #with:
+  # env2: ${{ needs.varibaleSetting.outputs.env1 }}
 
