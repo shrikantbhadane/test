@@ -35,6 +35,7 @@ jobs:
       echo ${{ github.repositoryUrl }}
       echo ${{ github.server_url }}
       echo ${{ github.repository }}
+      echo git remote set-url --push origin "${{ github.server_url }}/${{ github.repository }}.git"
                  
  #callingReusable:
   #needs: varibaleSetting
