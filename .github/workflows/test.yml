@@ -6,7 +6,7 @@ jobs:
  varibaleSetting:
   name: "setting env"
   runs-on: ubuntu-latest
-  #if: github.run_attempt == 1
+  if: github.run_attempt == 1
   strategy:
    matrix:
     env1: [test, qa]
