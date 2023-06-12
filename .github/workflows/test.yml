@@ -38,7 +38,7 @@ jobs:
       echo ${{ github.repository }}
       echo git remote set-url --push origin "${{ github.server_url }}/${{ github.repository }}.git"
       echo "github-run-id=${{ github.run_id }}"
-      echo "github-run-number=${{ github.run_umber }}"
+      echo "github-run-number=${{ github.run_number }}"
   
  testjob:
   name: testjob
