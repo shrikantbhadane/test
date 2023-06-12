@@ -11,7 +11,8 @@ jobs:
  varibaleSetting:
   name: "setting env"
   runs-on: ubuntu-latest
-  if: github.run_attempt == 1
+  #if: github.run_attempt == 1
+  if: github.event_name != 'workflow_dispatch' #&& github.event.inputs.test == 'manual'
   strategy:
    matrix:
     env1: [test, qa]
