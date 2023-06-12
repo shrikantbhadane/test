@@ -31,14 +31,6 @@ jobs:
         
    - name: Run git config. 
      run: |
-      #git config user.email "actions@github.com"
-      #git config user.name "GitHub Actions"
-      #.git_template: &git_setup |
-      git remote set-url --push origin "https://github.com/shrikantbhadane/test.git"
-      git config user.name "INDIGO Github CI"
-      git config user.email indigo@bayer.github.com
-      git status
-      git config --list
       echo ${{ github.repositoryUrl }}
       echo ${{ github.server_url }}
       echo ${{ github.repository }}
@@ -53,7 +45,7 @@ jobs:
   if: success()
   steps:
    - name: Test another job
-     if: github.event_name == 'workflow_dispatch' && github.event.inputs.test == 'manual'
+     if: github.event_name == 'workflow_dispatch' # && github.event.inputs.test == 'manual'
      run: echo " I am running with github attempt ${{ github.run_attempt }}"
  #callingReusable:
   #needs: varibaleSetting
