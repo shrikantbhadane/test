@@ -2,17 +2,17 @@ name: CI
 on:
  push:
  workflow_dispatch:
-    inputs:
-      test:
-        type: string
-        default: ''
-        required: false
+    #inputs:
+      #test:
+        #type: string
+        #default: ''
+        #required: false
 jobs:
  varibaleSetting:
   name: "setting env"
   runs-on: ubuntu-latest
   #if: github.run_attempt == 1
-  #if: github.event_name != 'workflow_dispatch' #&& github.event.inputs.test == 'manual'
+  if: github.event_name != 'workflow_dispatch' 
   strategy:
    matrix:
     env1: [test, qa]
