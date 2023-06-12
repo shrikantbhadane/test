@@ -1,7 +1,12 @@
 name: CI
 on:
  push:
- 
+ workflow_dispatch:
+    inputs:
+      test:
+        type: string
+        default: ''
+        required: false
 jobs:
  varibaleSetting:
   name: "setting env"
@@ -46,6 +51,7 @@ jobs:
   runs-on: ubuntu-latest
   steps:
    - name: Test another job
+     if: github.event_name == 'workflow_dispatch' && github.event.inputs.test == 'manual'
      run: echo " I am running with github attempt ${{ github.run_attempt }}"
  #callingReusable:
   #needs: varibaleSetting
