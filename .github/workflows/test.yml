@@ -42,7 +42,7 @@ jobs:
    - name: Deploy Dev
      run: |
       echo "Deploying to Dev env."
-      sleep 20
+      sleep 10
       echo "Deploying to Dev env. done"
       
  deploy-qa:
@@ -53,7 +53,7 @@ jobs:
    - name: Deploy QA
      run: |
       echo "Deploying to QA env."
-      sleep 20
+      sleep 10
       echo "Deploying to QA env. done"
       
  deploy-prod:
@@ -64,7 +64,7 @@ jobs:
    - name: Deploy Prod
      run: |
       echo "Deploying to Prod env."
-      sleep 20
+      sleep 10
       echo "Deploying to Prod env. done"
  
 
