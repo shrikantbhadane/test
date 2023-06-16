@@ -20,8 +20,8 @@ jobs:
   steps:
    - name: Docker Build
      run: |
-      echo "Doing docker build ${{ github.ref }}, ${{ github.event.name }}" 
-      sleep 20
+      echo "Doing docker build ${{ github.ref }}, ${{ github.event_name }}, ${{ github.event.action }}" 
+      sleep 10
       docker images
       echo "Docker done"
       
@@ -48,7 +48,7 @@ jobs:
  deploy-qa:
   needs: [docker-build]
   runs-on: ubuntu-latest
-  if: (github.event.name == 'workflow_dispatch')
+  if: (github.event_name == 'workflow_dispatch')
   steps:
    - name: Deploy QA
      run: |
