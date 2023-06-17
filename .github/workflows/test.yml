@@ -10,6 +10,12 @@ on:
 jobs:
  compile:
   runs-on: ubuntu-latest
+  if: |
+     (
+      startsWith(github.ref, 'refs/heads/feature/') &&
+      github.event_name == 'workflow_dispatch' &&
+      github.event.inputs.delivery == 'manual'
+     )
   steps:
   - name: checkout
     uses: actions/checkout@v3
