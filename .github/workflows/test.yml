@@ -2,11 +2,11 @@ name: CI
 on:
  push:
  workflow_dispatch:
-    #inputs:
-      #test:
-        #type: string
-        #default: ''
-        #required: false
+    inputs:
+      delivery:
+        type: string
+        default: ''
+        required: false
 jobs:
  compile:
   runs-on: ubuntu-latest
