@@ -50,10 +50,10 @@ jobs:
    stage: ${{ matrix.env }}
   if: |
       (
-         ${{stage }} == 'dev' && ( ${{ github.ref }} == 'refs/heads/main' || ${{ github.ref }} == 'refs/heads/develop')  
+         $stage == 'dev' && ( ${{ github.ref }} == 'refs/heads/main' || ${{ github.ref }} == 'refs/heads/develop')  
        ) ||
        (
-         ${{stage }} == 'qa' &&
+         $stage == 'qa' &&
          github.event_name == 'workflow_dispatch' &&
          github.event.inputs.deploy_qa == 'manual' &&
          (
@@ -63,7 +63,7 @@ jobs:
           )
        ) ||
        (
-         ${{stage }} == 'prod' &&
+         $stage == 'prod' &&
           github.event_name == 'workflow_dispatch' &&
           github.event.inputs.deploy_prod == 'manual' &&
           github.ref == 'refs/heads/main'
