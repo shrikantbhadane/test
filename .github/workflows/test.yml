@@ -71,7 +71,7 @@ jobs:
   steps:
    - name: "Deploy to ${{ env.stage }}"
      run: |
-      echo "Deploying to $stage env. Event=$github.event_name, branch=$github.ref"
+      echo "Deploying to $stage env. Event=${{ github.event_name }}, branch=${{ github.ref }}"
       sleep 5
       echo "Deploying to $stage env. done"
       
