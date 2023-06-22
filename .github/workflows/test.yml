@@ -50,23 +50,23 @@ jobs:
    stage: ${{ matrix.env }}
   if: |
       (
-         $stage == dev && ( ${{ github.ref }} == refs/heads/main || ${{ github.ref }} == refs/heads/develop)  
+         $stage == "dev" && ( ${{ github.ref }} == refs/heads/main || ${{ github.ref }} == "refs/heads/develop")  
        ) ||
        (
-         $stage == qa &&
-         github.event_name == workflow_dispatch &&
-         github.event.inputs.deploy_qa == manual &&
+         $stage == "qa" &&
+         github.event_name == "workflow_dispatch" &&
+         github.event.inputs.deploy_qa == "manual" &&
          (
-           github.ref == refs/heads/main ||
-           github.ref == refs/heads/develop ||
-           startsWith(github.ref, 'refs/heads/') && contains(github.ref, 'helm3') 
+           github.ref == "refs/heads/main" ||
+           github.ref == "refs/heads/develop" ||
+           startsWith(github.ref, "refs/heads/") && contains(github.ref, "helm3") 
           )
        ) ||
        (
-         $stage == prod &&
-          github.event_name == workflow_dispatch &&
-          github.event.inputs.deploy_prod == manual &&
-          github.ref == 'refs/heads/main'
+         $stage == "prod" &&
+          github.event_name == "workflow_dispatch" &&
+          github.event.inputs.deploy_prod == "manual" &&
+          github.ref == "refs/heads/main"
         )
   steps:
    - name: "Deploy to ${{ env.stage }}"
