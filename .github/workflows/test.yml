@@ -25,7 +25,7 @@ jobs:
    - name: Docker Build
      run: |
       echo "Doing docker build ${{ github.ref }}, ${{ github.event_name }}, ${{ github.event.action }}" 
-      sleep 10
+      sleep 5
       docker images
       echo "Docker done"
       
@@ -36,10 +36,10 @@ jobs:
    - name: Delivery
      run: |
       echo "Delivery code to Jfrog"
-      sleep 10
+      sleep 5
       echo "Delivery code to Jfrog done"
       
- deploy-dev:
+ deploy:
   needs: [docker-build]
   runs-on: ubuntu-latest
   strategy:
@@ -69,9 +69,9 @@ jobs:
           github.ref == 'refs/heads/main'
         )
   steps:
-   - name: Deploy to $stage
+   - name: "Deploy to ${{ env.stage }}"
      run: |
-      echo "Deploying to $stage env."
+      echo "Deploying to $stage env. Event=$github.event_name, branch=$github.ref"
       sleep 5
       echo "Deploying to $stage env. done"
       
