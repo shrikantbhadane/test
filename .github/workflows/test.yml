@@ -70,6 +70,26 @@ jobs:
         )
   steps:
    - name: "Deploy to ${{ env.stage }}"
+     if: |
+      (
+         $stage == 'dev' && ( ${{ github.ref }} == 'refs/heads/main' || ${{ github.ref }} == 'refs/heads/develop')  
+       ) ||
+       (
+         $stage == 'qa' &&
+         github.event_name == 'workflow_dispatch' &&
+         github.event.inputs.deploy_qa == 'manual' &&
+         (
+           github.ref == 'refs/heads/main' ||
+           github.ref == 'refs/heads/develop' ||
+           startsWith(github.ref, 'refs/heads/') && contains(github.ref, 'helm3') 
+          )
+       ) ||
+       (
+         $stage == 'prod' &&
+          github.event_name == 'workflow_dispatch' &&
+          github.event.inputs.deploy_prod == 'manual' &&
+          github.ref == 'refs/heads/main'
+        )
      run: |
       echo "Deploying to $stage env. Event=${{ github.event_name }}, branch=${{ github.ref }}"
       sleep 5
