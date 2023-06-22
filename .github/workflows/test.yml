@@ -72,10 +72,10 @@ jobs:
    - name: "Deploy to ${{ env.stage }}"
      if: |
       (
-         ${{env.stage }} == 'dev' && ( ${{ github.ref }} == 'refs/heads/main' || ${{ github.ref }} == 'refs/heads/develop')  
+         ${{ env.stage }} == 'dev' && ( ${{ github.ref }} == 'refs/heads/main' || ${{ github.ref }} == 'refs/heads/develop')  
        ) ||
        (
-         ${{env.stage }} == 'qa' &&
+         ${{ env.stage }} == 'qa' &&
          github.event_name == 'workflow_dispatch' &&
          github.event.inputs.deploy_qa == 'manual' &&
          (
@@ -85,7 +85,7 @@ jobs:
           )
        ) ||
        (
-         ${{env.stage }} == 'prod' &&
+         ${{ env.stage }} == 'prod' &&
           github.event_name == 'workflow_dispatch' &&
           github.event.inputs.deploy_prod == 'manual' &&
           github.ref == 'refs/heads/main'
