@@ -2,11 +2,15 @@ name: CI
 on:
  push:
  workflow_dispatch:
-    #inputs:
-      #test:
-        #type: string
-        #default: ''
-        #required: false
+    inputs:
+      deploy_qa:
+        type: string
+        default: ''
+        required: false
+      deploy_prod:
+        type: string
+        default: ''
+        required: false
 jobs:
  compile:
   runs-on: ubuntu-latest
@@ -38,33 +42,38 @@ jobs:
  deploy-dev:
   needs: [docker-build]
   runs-on: ubuntu-latest
+  strategy:
+       matrix:
+        env: [ dev , qa, prod ]
+  environment: ${{ matrix.env }} 
+  env:
+   stage: ${{ matrix.env }}
+  if: |
+      (
+         $stage == 'dev' && ( ${{ github.ref }} == 'refs/heads/main' || ${{ github.ref }} == 'refs/heads/develop')  
+       ) ||
+       (
+         $stage == 'qa' &&
+         github.event_name == 'workflow_dispatch' &&
+         github.event.inputs.deploy_qa == 'manual' &&
+         (
+           github.ref == 'refs/heads/main' ||
+           github.ref == 'refs/heads/develop' ||
+           startsWith(github.ref, 'refs/heads/') && contains(github.ref, 'helm3') 
+          )
+       ) ||
+       (
+         $stage == 'prod' &&
+          github.event_name == 'workflow_dispatch' &&
+          github.event.inputs.deploy_prod == 'manual' &&
+          github.ref == 'refs/heads/main'
+        )
   steps:
-   - name: Deploy Dev
+   - name: Deploy to $stage
      run: |
-      echo "Deploying to Dev env."
-      sleep 10
-      echo "Deploying to Dev env. done"
+      echo "Deploying to $stage env."
+      sleep 5
+      echo "Deploying to $stage env. done"
       
- deploy-qa:
-  needs: [docker-build]
-  runs-on: ubuntu-latest
-  if: (github.event_name == 'workflow_dispatch')
-  steps:
-   - name: Deploy QA
-     run: |
-      echo "Deploying to QA env."
-      sleep 10
-      echo "Deploying to QA env. done"
-      
- deploy-prod:
-  needs: [docker-build]
-  runs-on: ubuntu-latest
-  if: (github.ref == 'refs/heads/main' && github.event_name == 'workflow_dispatch')
-  steps:
-   - name: Deploy Prod
-     run: |
-      echo "Deploying to Prod env."
-      sleep 10
-      echo "Deploying to Prod env. done"
  
 
