@@ -45,29 +45,29 @@ jobs:
   strategy:
        matrix:
         env: [ dev , qa, prod ]
-  environment: ${{ matrix.env }} 
+  #environment: ${{ matrix.env }} 
   env:
    stage: ${{ matrix.env }}
   if: |
     
       (
-         $stage == "dev" && ( ${{ github.ref }} == refs/heads/main || ${{ github.ref }} == "refs/heads/develop")  
+         $stage == "dev" && ( ${{ github.ref }} == "refs/heads/main" || ${{ github.ref }} == "refs/heads/develop")  
        ) ||
        (
          $stage == "qa" &&
-         github.event_name == "workflow_dispatch" &&
-         github.event.inputs.deploy_qa == "manual" &&
+         ${{ github.event_name }} == "workflow_dispatch" &&
+         ${{ github.event.inputs.deploy_qa }} == "manual" &&
          (
-           github.ref == "refs/heads/main" ||
-           github.ref == "refs/heads/develop" ||
-           startsWith(github.ref, "refs/heads/") && contains(github.ref, "helm3") 
+           ${{ github.ref }} == "refs/heads/main" ||
+           ${{ github.ref }} == "refs/heads/develop" ||
+           startsWith(${{ github.ref }}, "refs/heads/") && contains(${{ github.ref }}, "helm3") 
           )
        ) ||
        (
          $stage == "prod" &&
-          github.event_name == "workflow_dispatch" &&
-          github.event.inputs.deploy_prod == "manual" &&
-          github.ref == "refs/heads/main"
+          ${{ github.event_name }} == "workflow_dispatch" &&
+          ${{ github.event.inputs.deploy_prod }} == "manual" &&
+          ${{ github.ref }} == "refs/heads/main"
         )
      
   steps:
