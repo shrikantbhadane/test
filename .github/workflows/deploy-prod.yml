@@ -12,7 +12,7 @@ jobs:
   steps:
    - name: Docker Build
      run: |
-      echo "Doing docker build ${{ github.ref }}, ${{ github.event_name }}, ${{ github.event.action }}" 
+      echo "Doing docker build ${{ github.ref }}, ${{ github.event_name }}, ${{ github.event.action }}, ${{ github.event.inputs.deploy_prod }}" 
       sleep 5
       docker images
       echo "Docker done"
