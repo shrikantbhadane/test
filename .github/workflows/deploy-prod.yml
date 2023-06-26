@@ -9,7 +9,7 @@ on:
 jobs:
  deploy-prod:
   runs-on: ubuntu-latest
-  if: (github.ref == 'refs/heads/main' && github.event.name == 'workflow_dispatch' && github.event.inputs.deploy_prod == 'manual')
+  #if: (github.ref == 'refs/heads/main' && github.event.name == 'workflow_dispatch' && github.event.inputs.deploy_prod == 'manual')
   steps:
    - name: Deploy Prod
      run: |
