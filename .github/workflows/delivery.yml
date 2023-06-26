@@ -1,0 +1,19 @@
+name: delivery
+on:
+ workflow_dispatch:
+    inputs:
+      delivery:
+        type: string
+        default: ''
+        required: false
+jobs:
+ delivery:
+  runs-on: ubuntu-latest
+  if: (github.event_name == 'workflow_dispatch' && github.event.inputs.delivery == 'manual' && github.ref == 'refs/heads/main' )
+  steps:
+   - name: Delivery
+     run: |
+      echo "Delivery code to Jfrog"
+      sleep 5
+      echo "Delivery code to Jfrog done"
+      
