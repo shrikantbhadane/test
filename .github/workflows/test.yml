@@ -36,4 +36,13 @@ jobs:
       echo "Delivery code to Jfrog"
       sleep 5
       echo "Delivery code to Jfrog done"
-      
+ 
+ deploy-dev:
+  needs: [docker-build]
+  runs-on: ubuntu-latest
+  steps:
+   - name: Deploy Dev
+     run: |
+      echo "Deploying to Dev env."
+      sleep 5
+      echo "Deploying to Dev env. done"
