@@ -7,14 +7,7 @@ on:
         type: string
         default: ''
         required: false
-      deploy_qa:
-        type: string
-        default: ''
-        required: false  
-      deploy_prod:
-        type: string
-        default: ''
-        required: false 
+
 jobs:
  compile:
   runs-on: ubuntu-latest
@@ -44,38 +37,3 @@ jobs:
       sleep 5
       echo "Delivery code to Jfrog done"
       
- deploy-dev:
-  needs: [docker-build]
-  runs-on: ubuntu-latest
-  steps:
-   - name: Deploy Dev
-     run: |
-      echo "Deploying to Dev env."
-      sleep 5
-      echo "Deploying to Dev env. done"
-      
- deploy-qa:
-  needs: [docker-build]
-  runs-on: ubuntu-latest
-  if: (github.event_name == 'workflow_dispatch' && github.event.inputs.deploy_qa == 'manual' &&
-       (github.ref == 'refs/heads/master' || github.ref == 'refs/heads/develop')
-      )
-  steps:
-   - name: Deploy QA
-     run: |
-      echo "Deploying to QA env."
-      sleep 5
-      echo "Deploying to QA env. done"
-      
- deploy-prod:
-  needs: [docker-build]
-  runs-on: ubuntu-latest
-  if: (github.ref == 'refs/heads/main' && github.event.name == 'workflow_dispatch' && github.event.inputs.deploy_prod == 'manual')
-  steps:
-   - name: Deploy Prod
-     run: |
-      echo "Deploying to Prod env."
-      sleep 5
-      echo "Deploying to Prod env. done"
- 
-
