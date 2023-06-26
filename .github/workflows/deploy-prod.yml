@@ -20,7 +20,7 @@ jobs:
  deploy-prod:
   runs-on: ubuntu-latest
   if: |
-    github.ref == 'refs/heads/main'        
+    github.event_name == 'workflow_dispatch'        
   steps:
    - name: Deploy Prod
      run: |
