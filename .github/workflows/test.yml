@@ -1,16 +1,6 @@
 name: CI
 on:
  push:
- workflow_dispatch:
-    inputs:
-      deploy_qa:
-        type: string
-        default: ''
-        required: false
-      deploy_prod:
-        type: string
-        default: ''
-        required: false
 jobs:
  compile:
   runs-on: ubuntu-latest
@@ -25,55 +15,14 @@ jobs:
    - name: Docker Build
      run: |
       echo "Doing docker build ${{ github.ref }}, ${{ github.event_name }}, ${{ github.event.action }}" 
-      sleep 10
+      sleep 5
       docker images
       echo "Docker done"
       
- delivery:
-  needs: [docker-build]
-  runs-on: ubuntu-latest
-  steps:
-   - name: Delivery
-     run: |
-      echo "Delivery code to Jfrog"
-      sleep 10
-      echo "Delivery code to Jfrog done"
-      
  deploy-dev:
-  needs: [docker-build]
-  runs-on: ubuntu-latest
-  strategy:
-       matrix:
-        env: [ dev , qa, prod ]
-  environment: ${{ matrix.env }} 
-  env:
-   stage: ${{ matrix.env }}
-  if: |
-      (
-         $stage == 'dev' && ( ${{ github.ref }} == 'refs/heads/main' || ${{ github.ref }} == 'refs/heads/develop')  
-       ) ||
-       (
-         $stage == 'qa' &&
-         github.event_name == 'workflow_dispatch' &&
-         github.event.inputs.deploy_qa == 'manual' &&
-         (
-           github.ref == 'refs/heads/main' ||
-           github.ref == 'refs/heads/develop' ||
-           startsWith(github.ref, 'refs/heads/') && contains(github.ref, 'helm3') 
-          )
-       ) ||
-       (
-         $stage == 'prod' &&
-          github.event_name == 'workflow_dispatch' &&
-          github.event.inputs.deploy_prod == 'manual' &&
-          github.ref == 'refs/heads/main'
-        )
   steps:
    - name: Deploy to $stage
      run: |
-      echo "Deploying to $stage env."
+      echo "Deploying to Dev env."
       sleep 5
-      echo "Deploying to $stage env. done"
-      
- 
-
+      echo "Deploying to Dev env. done"
