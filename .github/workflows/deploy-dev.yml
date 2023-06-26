@@ -1,0 +1,20 @@
+name: CI
+on:
+ push:
+ workflow_dispatch:
+    inputs:
+      deploy_prod:
+        type: string
+        default: ''
+        required: false 
+jobs:
+ deploy-prod:
+  runs-on: ubuntu-latest
+  if: (github.ref == 'refs/heads/main' && github.event.name == 'workflow_dispatch' && github.event.inputs.deploy_prod == 'manual')
+  steps:
+   - name: Deploy Prod
+     run: |
+      echo "Deploying to Prod env."
+      sleep 5
+      echo "Deploying to Prod env. done"
+ 
