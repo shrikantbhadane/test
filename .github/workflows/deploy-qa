@@ -1,0 +1,24 @@
+name: deploy-qa
+on:
+ push:
+ workflow_dispatch:
+    inputs:
+      deploy_qa:
+        type: string
+        default: ''
+        required: false  
+     
+ deploy-qa:
+  runs-on: ubuntu-latest
+  if: (github.event_name == 'workflow_dispatch' && github.event.inputs.deploy_qa == 'manual' &&
+       (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop')
+      )
+  steps:
+   - name: Deploy QA
+     run: |
+      echo "Deploying to QA env."
+      sleep 5
+      echo "Deploying to QA env. done"
+
+ 
+
