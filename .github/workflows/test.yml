@@ -7,15 +7,17 @@ on:
         type: string
         default: ''
         required: false
+      deploy_qa:
+        type: string
+        default: ''
+        required: false  
+      deploy_prod:
+        type: string
+        default: ''
+        required: false 
 jobs:
  compile:
   runs-on: ubuntu-latest
-  if: |
-     (
-      startsWith(github.ref, 'refs/heads/feature/') &&
-      github.event_name == 'workflow_dispatch' &&
-      github.event.inputs.delivery == 'manual'
-     )
   steps:
   - name: checkout
     uses: actions/checkout@v3
@@ -27,18 +29,19 @@ jobs:
    - name: Docker Build
      run: |
       echo "Doing docker build ${{ github.ref }}, ${{ github.event_name }}, ${{ github.event.action }}" 
-      sleep 10
+      sleep 5
       docker images
       echo "Docker done"
       
  delivery:
   needs: [docker-build]
   runs-on: ubuntu-latest
+  if: (github.event_name == 'workflow_dispatch' && github.event.inputs.delivery == 'manual' && github.ref == 'refs/heads/master' )
   steps:
    - name: Delivery
      run: |
       echo "Delivery code to Jfrog"
-      sleep 10
+      sleep 5
       echo "Delivery code to Jfrog done"
       
  deploy-dev:
@@ -48,29 +51,31 @@ jobs:
    - name: Deploy Dev
      run: |
       echo "Deploying to Dev env."
-      sleep 20
+      sleep 5
       echo "Deploying to Dev env. done"
       
  deploy-qa:
   needs: [docker-build]
   runs-on: ubuntu-latest
-  if: (github.event_name == 'workflow_dispatch')
+  if: (github.event_name == 'workflow_dispatch' && github.event.inputs.deploy_qa == 'manual' &&
+       (github.ref == 'refs/heads/master' || github.ref == 'refs/heads/develop')
+      )
   steps:
    - name: Deploy QA
      run: |
       echo "Deploying to QA env."
-      sleep 20
+      sleep 5
       echo "Deploying to QA env. done"
       
  deploy-prod:
   needs: [docker-build]
   runs-on: ubuntu-latest
-  if: (github.ref == 'refs/heads/main' && github.event.name == 'workflow_dispatch')
+  if: (github.ref == 'refs/heads/main' && github.event.name == 'workflow_dispatch' && github.event.inputs.deploy_prod == 'manual')
   steps:
    - name: Deploy Prod
      run: |
       echo "Deploying to Prod env."
-      sleep 20
+      sleep 5
       echo "Deploying to Prod env. done"
  
 
