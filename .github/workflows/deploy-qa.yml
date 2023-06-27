@@ -2,8 +2,12 @@ name: deploy-qa
 on:
  workflow_dispatch:
 
-jobs:    
+jobs:
+  job1:
+    uses: shrikantbhadne/test/.github/workflows/test.yml@v1
+    
   deploy-qa:
+   needs: job1
    runs-on: ubuntu-latest
    if: |
     (github.event_name == 'workflow_dispatch' &&
@@ -15,6 +19,7 @@ jobs:
        echo "Deploying to QA env."
        sleep 5
        echo "Deploying to QA env. done GITHUB-RUNID=${{ github.run_id }}"
+       echo "Build-ID from test workflow=${{ needs.job1.outputs.build-id }}"
 
  
 
