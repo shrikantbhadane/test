@@ -3,23 +3,32 @@ on:
  workflow_dispatch:
 
 jobs:
-  job1:
-    uses: shrikantbhadane/test/.github/workflows/test.yml@main
-    
+  #job1:
+    #uses: shrikantbhadane/test/.github/workflows/test.yml@main
+  
+
+       
   deploy-qa:
-   needs: job1
+   #needs: job1
    runs-on: ubuntu-latest
    if: |
     (github.event_name == 'workflow_dispatch' &&
       (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop')
      )
    steps:
+    - name: Download compiled artifacts
+      uses: actions/download-artifact@v3
+      with:
+       name: build-id
+       path: ./build-id.txt
+     
     - name: Deploy QA
       run: |
        echo "Deploying to QA env."
        sleep 5
        echo "Deploying to QA env. done GITHUB-RUNID=${{ github.run_id }}"
-       echo "Build-ID from test workflow=${{ needs.job1.outputs.build-id }}"
+       build-id=$(cat build-id.txt)
+       echo "Build-ID from test workflow file=$build-id"
 
  
 
