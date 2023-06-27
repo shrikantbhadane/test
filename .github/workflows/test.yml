@@ -12,8 +12,8 @@ jobs:
  docker-build:
   needs: compile
   runs-on: ubuntu-latest
-  outputs:
-   build-id: ${{ github.run_id }}
+  #outputs:
+   #build-id: ${{ github.run_id }}
   steps:
    - name: Docker Build
      run: |
@@ -34,5 +34,5 @@ jobs:
       echo "Deploying to Dev env."
       sleep 5
       echo "Deploying to Dev env. done BUILD-VERIFY=${{ env.build-and-verify }}"
-      #echo "BUILD-ID=${{ build-id }}"
+      echo "BUILD-ID=${{ build-id }}"
       
