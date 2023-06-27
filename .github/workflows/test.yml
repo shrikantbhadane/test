@@ -50,7 +50,7 @@ jobs:
        name: build-id
        retention-days: 1
        path: |
-        ./target
+        ./build-id.txt
        
    - name: Check artifacts
      run: |
