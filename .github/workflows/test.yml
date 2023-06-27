@@ -42,7 +42,7 @@ jobs:
       echo "Deploying to Dev env. done "
       pwd;touch build-id.txt
       echo "${{ github.run_id }}" > build-id.txt
-      ls -ltr build-id;cat build-id.txt
+      ls -ltr build-id.txt;cat build-id.txt
       
       
       
