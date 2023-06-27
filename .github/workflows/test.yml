@@ -18,7 +18,7 @@ jobs:
       echo "Doing docker build ${{ github.ref }}, ${{ github.event_name }}, ${{ github.event.action }}" 
       sleep 5
       docker images
-      echo "Docker done"
+      echo "Docker done GITHUB-RUNID=${{ github.run_id }}"
       
  deploy-dev:
   needs: docker-build
