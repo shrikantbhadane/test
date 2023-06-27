@@ -26,13 +26,13 @@ jobs:
  deploy-dev:
   needs: docker-build
   runs-on: ubuntu-latest
-  env:
-   build-and-verify: ${{needs.docker-build.outputs.build-id}}
+  #env:
+   #build-and-verify: ${{needs.docker-build.outputs.build-id}}
   steps:
    - name: Deploy to $stage
      run: |
       echo "Deploying to Dev env."
       sleep 5
-      echo "Deploying to Dev env. done BUILD-VERIFY=${{ env.build-and-verify }}"
+      echo "Deploying to Dev env. done "
       echo "BUILD-ID=${{ build-id }}"
       
