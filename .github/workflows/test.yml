@@ -34,6 +34,6 @@ jobs:
       echo "Deploying to Dev env."
       sleep 5
       echo "Deploying to Dev env. done "
-      echo $GITHUB_OUTPUT
+      echo $build-id
       
       
