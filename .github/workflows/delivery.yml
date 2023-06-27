@@ -11,5 +11,5 @@ jobs:
      run: |
       echo "Delivery code to Jfrog"
       sleep 5
-      echo "Delivery code to Jfrog done"
+      echo "Delivery code to Jfrog done GITHUB-RUNID=${{ github.run_id }}"
       
