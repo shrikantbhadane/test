@@ -12,6 +12,8 @@ jobs:
  docker-build:
   needs: compile
   runs-on: ubuntu-latest
+  outputs:
+   build-id: ${{ github.run_id }}
   steps:
    - name: Docker Build
      run: |
@@ -19,13 +21,18 @@ jobs:
       sleep 5
       docker images
       echo "Docker done GITHUB-RUNID=${{ github.run_id }}"
+      echo "::set-output name=build-id::${{ github.run_id }}"
       
  deploy-dev:
   needs: docker-build
   runs-on: ubuntu-latest
+  env:
+   build-and-verify: ${{needs.docker-build.outputs.build-id}}
   steps:
    - name: Deploy to $stage
      run: |
       echo "Deploying to Dev env."
       sleep 5
-      echo "Deploying to Dev env. done"
+      echo "Deploying to Dev env. done BUILD-VERIFY=${{ env.build-and-verify }}"
+      echo "BUILD-ID=${{ build-id }}"
+      
