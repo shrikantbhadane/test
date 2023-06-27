@@ -2,6 +2,11 @@ name: CI
 on:
  push:
  workflow_dispatch:
+ workflow_call:
+  outputs:
+    build-id:
+      description: "The Github run-id"
+      value: ${{ jobs.docker-build.outputs.output1 }}
 jobs:
  compile:
   runs-on: ubuntu-latest
@@ -12,17 +17,18 @@ jobs:
  docker-build:
   needs: compile
   runs-on: ubuntu-latest
-  #outputs:
-   #build-id: ${{ github.run_id }}
+  outputs:
+      output1: ${{ steps.docker-build.outputs.build-id }}
   steps:
    - name: Docker Build
+     id: docker-build
      run: |
       echo "Doing docker build ${{ github.ref }}, ${{ github.event_name }}, ${{ github.event.action }}" 
       sleep 5
       docker images
-      #echo "Docker done GITHUB-RUNID=${{ github.run_id }}"
+      echo "Docker done GITHUB-RUNID=${{ github.run_id }}"
       echo "build-id=${{ github.run_id }}" >> $GITHUB_OUTPUT
-      
+            
  deploy-dev:
   needs: docker-build
   runs-on: ubuntu-latest
@@ -34,6 +40,6 @@ jobs:
       echo "Deploying to Dev env."
       sleep 5
       echo "Deploying to Dev env. done "
-      echo "Build-ID=$build-id"
+      
       
       
