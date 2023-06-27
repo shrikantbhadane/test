@@ -43,6 +43,16 @@ jobs:
       pwd;touch build-id.txt
       echo "${{ github.run_id }}" > build-id.txt
       ls -ltr build-id.txt;cat build-id.txt
-      
-      
+   
+   - name: Upload compiled artifacts
+     uses: actions/upload-artifact@v3
+     with:
+       name: build-id
+       retention-days: 1
+       path: |
+        ./target
+       
+   - name: Check artifacts
+     run: |
+      pwd;ls -ltR
       
