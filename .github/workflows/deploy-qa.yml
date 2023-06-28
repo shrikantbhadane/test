@@ -30,7 +30,6 @@ jobs:
        echo "Deploying to QA env."
        sleep 5
        echo "Deploying to QA env. done GITHUB-RUNID=${{ github.run_id }}"
-       pwd;ls -ltR
        build_id=$(cat ${{ github.workspace }}/build-id/build-id.txt)
        echo "Build-ID from test workflow file=${build_id}"
 
