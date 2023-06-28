@@ -19,7 +19,10 @@ jobs:
     - name: Download artifact
       uses: dawidd6/action-download-artifact@v2
       with:
+       github_token: ${{secrets.GITHUB_TOKEN}}
        workflow: test.yml
+       name: build-id*
+       name_is_regexp: true
        workflow_conclusion: success
      
     - name: Deploy QA
@@ -27,6 +30,7 @@ jobs:
        echo "Deploying to QA env."
        sleep 5
        echo "Deploying to QA env. done GITHUB-RUNID=${{ github.run_id }}"
+       tar -xzvf build-id.zip
        build-id=$(cat build-id.txt)
        echo "Build-ID from test workflow file=$build-id"
 
