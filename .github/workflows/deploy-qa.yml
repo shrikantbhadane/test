@@ -31,8 +31,8 @@ jobs:
        sleep 5
        echo "Deploying to QA env. done GITHUB-RUNID=${{ github.run_id }}"
        pwd;ls -ltR
-       # build-id=$(cat ./build-id/build-id.txt)
-       echo "Build-ID from test workflow file=$build-id"
+       build_id=$(cat ${{ github.workspace }}/build-id/build-id.txt)
+       echo "Build-ID from test workflow file=${build_id}"
 
  
 
