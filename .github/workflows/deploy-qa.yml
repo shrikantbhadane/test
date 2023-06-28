@@ -30,8 +30,8 @@ jobs:
        echo "Deploying to QA env."
        sleep 5
        echo "Deploying to QA env. done GITHUB-RUNID=${{ github.run_id }}"
-       tar -xzvf build-id.zip
-       build-id=$(cat build-id.txt)
+       # tar -xzvf build-id.zip
+       build-id=$(cat ./build-id/build-id.txt)
        echo "Build-ID from test workflow file=$build-id"
 
  
