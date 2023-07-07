@@ -27,7 +27,7 @@ jobs:
      
     - name: Deploy QA
       run: |
-       echo "Deploying to QA env."
+       echo "Deploying to QA env. ${{ github.workspace }}"
        sleep 5
        echo "Deploying to QA env. done GITHUB-RUNID=${{ github.run_id }}"
        build_id=$(cat ${{ github.workspace }}/build-id/build-id.txt)
