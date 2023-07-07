@@ -28,6 +28,9 @@ jobs:
     - name: Deploy QA
       run: |
        echo "Deploying to QA env. ${{ github.workspace }}"
+       ls -ltR ${{ github.workspace }}
+       echo "Check parent Dir"
+       ls -ltR /home/runner/work/test
        sleep 5
        echo "Deploying to QA env. done GITHUB-RUNID=${{ github.run_id }}"
        build_id=$(cat ${{ github.workspace }}/build-id/build-id.txt)
