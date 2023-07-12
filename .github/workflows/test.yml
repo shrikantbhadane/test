@@ -55,5 +55,4 @@ jobs:
    - name: Check artifacts
      run: |
       pwd;ls -ltR
-      
-Update deploy-qa.yml · shrikantbhadane/test@1f4a840 
+
