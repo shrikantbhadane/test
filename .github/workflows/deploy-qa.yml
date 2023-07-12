@@ -1,0 +1,36 @@
+name: deploy-qa
+on:
+ workflow_dispatch:
+
+jobs:
+  #job1:
+    #uses: shrikantbhadane/test/.github/workflows/test.yml@main
+       
+  deploy-qa:
+   #needs: job1
+   runs-on: ubuntu-latest
+   if: |
+    (github.event_name == 'workflow_dispatch' &&
+      (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop')
+     )
+   steps:
+    - name: Download artifact
+      uses: dawidd6/action-download-artifact@v2
+      with:
+       github_token: ${{secrets.GITHUB_TOKEN}}
+       workflow: test.yml
+       name: build-id*
+       name_is_regexp: true
+       branch: ${{ github.ref_name }}
+       workflow_conclusion: success
+     
+    - name: Deploy QA
+      run: |
+       echo "Deploying to QA env. ${{ github.workspace }}"
+       ls -ltR ${{ github.workspace }}
+       echo "Check parent Dir"
+       ls -ltR /home/runner/work/test
+       sleep 5
+       echo "Deploying to QA env. done GITHUB-RUNID=${{ github.run_id }}"
+       build_id=$(cat ${{ github.workspace }}/build-id/build-id.txt)
+       echo "Build-ID from test workflow file=${build_id}"
