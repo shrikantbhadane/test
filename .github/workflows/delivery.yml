@@ -1,0 +1,15 @@
+name: delivery
+on:
+ workflow_dispatch:
+
+jobs:
+ delivery:
+  runs-on: ubuntu-latest
+  if: (github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main' )
+  steps:
+   - name: Delivery
+     run: |
+      echo "Delivery code to Jfrog"
+      sleep 5
+      echo "Delivery code to Jfrog done GITHUB-RUNID=${{ github.run_id }}"
+      

@@ -1,0 +1,25 @@
+name: deploy-prod
+on:
+ workflow_dispatch:
+
+jobs:
+ GetData:
+  runs-on: ubuntu-latest
+  steps:
+   - name: Docker Build
+     run: |
+      echo "Doing docker build ${{ github.ref }}, ${{ github.event_name }}, ${{ github.event.action }}, ${{ github.event.inputs.deploy_prod }}" 
+      sleep 5
+      docker images
+      echo "Docker done GITHUB-RUNID=${{ github.run_id }}"
+      
+ deploy-prod:
+  runs-on: ubuntu-latest
+  if: (github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main' )        
+  steps:
+   - name: Deploy Prod
+     run: |
+      echo "Deploying to Prod env."
+      sleep 5
+      echo "Deploying to Prod env. done"
+ 

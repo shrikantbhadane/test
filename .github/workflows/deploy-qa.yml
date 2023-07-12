@@ -34,3 +34,4 @@ jobs:
        echo "Deploying to QA env. done GITHUB-RUNID=${{ github.run_id }}"
        build_id=$(cat ${{ github.workspace }}/build-id/build-id.txt)
        echo "Build-ID from test workflow file=${build_id}"
+

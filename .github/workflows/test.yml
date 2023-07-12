@@ -55,4 +55,17 @@ jobs:
    - name: Check artifacts
      run: |
       pwd;ls -ltR
-
+      ls -ltr build-id.txt;cat build-id.txt
+   
+   - name: Upload compiled artifacts
+     uses: actions/upload-artifact@v3
+     with:
+       name: build-id
+       retention-days: 1
+       path: |
+        ./build-id.txt
+       
+   - name: Check artifacts
+     run: |
+      pwd;ls -ltR
+      
