@@ -2,85 +2,58 @@ name: CI
 on:
  push:
  workflow_dispatch:
-    inputs:
-      deploy_qa:
-        type: string
-        default: ''
-        required: false
-      deploy_prod:
-        type: string
-        default: ''
-        required: false
+ workflow_call:
+  outputs:
+    build-id:
+      description: "The Github run-id"
+      value: ${{ jobs.docker-build.outputs.output1 }}
 jobs:
  compile:
   runs-on: ubuntu-latest
   steps:
   - name: checkout
     uses: actions/checkout@v3
-    
+
  docker-build:
   needs: compile
   runs-on: ubuntu-latest
+  outputs:
+      output1: ${{ steps.docker-build.outputs.build-id }}
   steps:
    - name: Docker Build
+     id: docker-build
      run: |
       echo "Doing docker build ${{ github.ref }}, ${{ github.event_name }}, ${{ github.event.action }}" 
       sleep 5
       docker images
-      echo "Docker done"
-      
- delivery:
-  needs: [docker-build]
+      echo "Docker done GITHUB-RUNID=${{ github.run_id }}"
+      echo "build-id=${{ github.run_id }}" >> $GITHUB_OUTPUT
+            
+ deploy-dev:
+  needs: docker-build
   runs-on: ubuntu-latest
+  #env:
+   #build-and-verify: ${{needs.docker-build.outputs.build-id}}
   steps:
-   - name: Delivery
+   - name: Deploy to $stage
      run: |
-      echo "Delivery code to Jfrog"
+      echo "Deploying to Dev env."
       sleep 5
-      echo "Delivery code to Jfrog done"
-      
- deploy:
-  needs: [docker-build]
-  runs-on: ubuntu-latest
-  strategy:
-       matrix:
-        env: [ dev , qa, prod ]
-  #environment: ${{ matrix.env }}
-  env:
-   stage: ${{ matrix.env }}
-  
-     
-  steps:
-   - name: Check run conditions
-     if: |
-       (
-         $stage == "dev" && ( ${{ github.ref }} == "refs/heads/main" || ${{ github.ref }} == "refs/heads/develop")  
-       ) ||
-       (
-         $stage == "qa" &&
-         ${{ github.event_name }} == "workflow_dispatch" &&
-         ${{ github.event.inputs.deploy_qa }} == "manual" &&
-         (
-           ${{ github.ref }} == "refs/heads/main" ||
-           ${{ github.ref }} == "refs/heads/develop" ||
-           startsWith(${{ github.ref }}, "refs/heads/") && contains(${{ github.ref }}, "helm3") 
-          )
-       ) ||
-       (
-         $stage == "prod" &&
-          ${{ github.event_name }} == "workflow_dispatch" &&
-          ${{ github.event.inputs.deploy_prod }} == "manual" &&
-          ${{ github.ref }} == "refs/heads/main"
-        )
-     env:
-        STEPS_CONTEXT: ${{ toJson(steps) }}
-     run: echo "$STEPS_CONTEXT"
-      
-   - name: "Deploy to ${{ env.stage }}"
+      echo "Deploying to Dev env. done "
+      pwd;touch build-id.txt
+      echo "${{ github.run_id }}" > build-id.txt
+      ls -ltr build-id.txt;cat build-id.txt
+   
+   - name: Upload compiled artifacts
+     uses: actions/upload-artifact@v3
+     with:
+       name: build-id
+       retention-days: 1
+       path: |
+        ./build-id.txt
+       
+   - name: Check artifacts
      run: |
-      echo "Deploying to $stage env. Event=${{ github.event_name }}, branch=${{ github.ref }}"
-      sleep 5
-      echo "Deploying to $stage env. done"
+      pwd;ls -ltR
       
- 
-
+Update deploy-qa.yml · shrikantbhadane/test@1f4a840 
