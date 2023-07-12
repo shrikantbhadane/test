@@ -38,10 +38,58 @@ jobs:
    - name: Deploy to $stage
      run: |
       echo "Deploying to Dev env."
+      
+ delivery:
+  needs: [docker-build]
+  runs-on: ubuntu-latest
+  steps:
+   - name: Delivery
+     run: |
+      echo "Delivery code to Jfrog"
       sleep 5
-      echo "Deploying to Dev env. done "
-      pwd;touch build-id.txt
-      echo "${{ github.run_id }}" > build-id.txt
+      echo "Delivery code to Jfrog done"
+      
+ deploy:
+  needs: [docker-build]
+  runs-on: ubuntu-latest
+  strategy:
+       matrix:
+        env: [ dev , qa, prod ]
+  #environment: ${{ matrix.env }}
+  env:
+   stage: ${{ matrix.env }}
+  
+     
+  steps:
+   - name: Check run conditions
+     if: |
+       (
+         $stage == "dev" && ( ${{ github.ref }} == "refs/heads/main" || ${{ github.ref }} == "refs/heads/develop")  
+       ) ||
+       (
+         $stage == "qa" &&
+         ${{ github.event_name }} == "workflow_dispatch" &&
+         ${{ github.event.inputs.deploy_qa }} == "manual" &&
+         (
+           ${{ github.ref }} == "refs/heads/main" ||
+           ${{ github.ref }} == "refs/heads/develop" ||
+           startsWith(${{ github.ref }}, "refs/heads/") && contains(${{ github.ref }}, "helm3") 
+          )
+       ) ||
+       (
+         $stage == "prod" &&
+          ${{ github.event_name }} == "workflow_dispatch" &&
+          ${{ github.event.inputs.deploy_prod }} == "manual" &&
+          ${{ github.ref }} == "refs/heads/main"
+        )
+     env:
+        STEPS_CONTEXT: ${{ toJson(steps) }}
+     run: echo "$STEPS_CONTEXT"
+      
+   - name: "Deploy to ${{ env.stage }}"
+     run: |
+      echo "Deploying to $stage env. Event=${{ github.event_name }}, branch=${{ github.ref }}"
+
       ls -ltr build-id.txt;cat build-id.txt
    
    - name: Upload compiled artifacts
