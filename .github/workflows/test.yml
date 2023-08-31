@@ -11,6 +11,17 @@ env:
  JOB_RUN: "T"
  
 jobs:
+ job1:
+    runs-on: ubuntu-latest
+    steps:
+      - id: step1
+        run: "echo test=hello >> $GITHUB_OUTPUT"
+      - name: step2
+        if: contains(steps.step1.outputs.test, 'hello')
+        run: echo is executed
+      - name: step3
+        if: contains(steps.step1.outputs.test, 'bye')
+        run: echo not executed
  compile:
   runs-on: ubuntu-latest
   steps:
