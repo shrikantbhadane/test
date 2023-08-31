@@ -29,7 +29,9 @@ jobs:
       echo "Docker done GITHUB-RUNID=${{ github.run_id }}"
       echo "build-id=${{ github.run_id }}" >> $GITHUB_OUTPUT
       echo "UTC_NOW=$(date +'%Y-%m-%dT%H:%M:%S')" >> "$GITHUB_ENV"
-      echo "Printing ENV var $UTC_NOW"
+      echo "Step Docker Build- Printing ENV var $UTC_NOW"
+   - name: Printing Env vars
+     run: echo "Step Printing- ENV var $UTC_NOW"
             
  deploy-dev:
   needs: docker-build
