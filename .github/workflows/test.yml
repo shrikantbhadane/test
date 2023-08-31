@@ -14,8 +14,7 @@ jobs:
  compile:
   runs-on: ubuntu-latest
   steps:
-  - if: |
-     (${{ env.JOB_RUN }} == "T")
+  - if: ${{ github.ref }} == "T"
     name: checkout
     uses: actions/checkout@v3
   - if: |
