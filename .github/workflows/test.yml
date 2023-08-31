@@ -8,17 +8,17 @@ on:
       description: "The Github run-id"
       value: ${{ jobs.docker-build.outputs.output1 }}
 env:
- JOB_RUN: "true"
+ JOB_RUN: "T"
  
 jobs:
  compile:
   runs-on: ubuntu-latest
   steps:
   - name: checkout
-    if: ${{ env.JOB_RUN }} == "true"
+    if: ${{ env.JOB_RUN }} == "T"
     uses: actions/checkout@v3
   - name: Test job run
-    if: ${{ env.JOB_RUN }} == "false"
+    if: ${{ env.JOB_RUN }} == "F"
     run: echo "I am in test job run step"
 
  docker-build:
