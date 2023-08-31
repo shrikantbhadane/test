@@ -14,13 +14,13 @@ jobs:
  compile:
   runs-on: ubuntu-latest
   steps:
-  - name: checkout
-    if: |
+  - if: |
      (${{ env.JOB_RUN }} == "T")
+    name: checkout
     uses: actions/checkout@v3
-  - name: Test job run
-    if: |
-     ${{ env.JOB_RUN }} == "F"
+  - if: |
+     ${{ env.JOB_RUN }} == "F" 
+    name: Test job run
     run: echo "I am in test job run step"
 
  docker-build:
