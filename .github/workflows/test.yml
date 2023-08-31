@@ -7,12 +7,19 @@ on:
     build-id:
       description: "The Github run-id"
       value: ${{ jobs.docker-build.outputs.output1 }}
+env:
+ JOB_RUN: 1
+ 
 jobs:
  compile:
   runs-on: ubuntu-latest
   steps:
   - name: checkout
+    if: ${{ env.JOB_RUN }} == "1"
     uses: actions/checkout@v3
+  - name: Test job run
+    if: ${{ env.JOB_RUN }} == "="
+    run: echo "I am in test job run step"
 
  docker-build:
   needs: compile
