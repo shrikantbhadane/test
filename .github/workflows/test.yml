@@ -9,25 +9,23 @@ on:
       value: ${{ jobs.docker-build.outputs.output1 }}
 env:
  JOB_RUN: "T"
- 
+
+ permissions:
+  deployments
+  
 jobs:
- job1:
-    runs-on: ubuntu-latest
-    steps:
-      - id: step1
-        run: "echo test=hello >> $GITHUB_OUTPUT"
-      - name: step2
-        if: contains(steps.step1.outputs.test, 'hello')
-        run: echo is executed
-      - name: step3
-        if: contains(steps.step1.outputs.test, 'bye')
-        run: echo not executed
  compile:
   runs-on: ubuntu-latest
   steps:
-  - if: ${{ github.ref }} == "T"
-    name: checkout
+  - name: checkout public repo
     uses: actions/checkout@v3
+  - name: checkout private repo
+    uses: actions/checkout@v3
+    with:
+     repository: shrikantbhadane/TestPrivateRepo
+     token: ${{ secrets.GITHUB_TOKEN }} 
+     path: my-tools
+    
   - if: |
      ${{ env.JOB_RUN }} == "F" 
     name: Test job run
