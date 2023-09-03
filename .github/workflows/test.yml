@@ -6,6 +6,8 @@ on:
 
 permissions:
   actions: read
+  checks: read
+
 
 
   
