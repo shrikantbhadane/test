@@ -13,11 +13,6 @@ permissions:
   repository-projects: read
   security-events: read
   statuses: read
-
-
-
-
-
   
 jobs:
  compile:
@@ -25,12 +20,13 @@ jobs:
   steps:
   - name: checkout public repo
     uses: actions/checkout@v3
-  - name: checkout private repo
-    uses: actions/checkout@v3
-    with:
-     repository: shrikantbhadane/TestPrivateRepo
-     token: ${{ secrets.GITHUB_TOKEN }} 
-     path: my-tools
+  
+  #- name: checkout private repo
+  #  uses: actions/checkout@v3
+  #  with:
+  #   repository: shrikantbhadane/TestPrivateRepo
+  #   token: ${{ secrets.GITHUB_TOKEN }} 
+  #   path: my-tools
     
   - if: |
      ${{ env.JOB_RUN }} == "F" 
