@@ -8,6 +8,8 @@ permissions:
   actions: read
   checks: read
   contents: read
+  deployments: read
+  id-token: read
 
 
 
